@@ -1,14 +1,14 @@
-/*square*/
+/*square css*/
 .square {
   background: white;
   border: 1px solid gray;
-  float: left;
+  float: left;  /*use float to put squares next to eachoter*/
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
-  width: 80px;
+  width: 80px;  
   height: 80px;
-  text-align: center;
+  text-align: center; /* set to center so x or o appears in center of square*/
   font-size: 40px;
   font-weight: bold;
   line-height: 80px;
@@ -18,15 +18,15 @@
   outline: none;
 }
 
-/*Board*/
+/*Board css*/
 .board-row:after{
-  clear: both;
+  clear: both; 
   content:"";
   display: table;
-}
+} /*helps set box as new line*/
 
-/*game*/
-.game{
+/*game css*/
+.game{ /*helps put game in center vertically and horizontally*/
   position: absolute;
   top:50%;
   left:50%;
