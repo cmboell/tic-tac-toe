@@ -19,6 +19,13 @@ export default class Game extends Component{
             ]
         }
     }
+    
+    jumpTo(step){
+        this.state({
+            stepNumber: step,
+            xIsNext: (step%2)===0
+        })
+    }
     handleClick(i){
         //defines history and current for handleClick
         const history = this.state.history.slice(0,this.state.stepNumber+1);
@@ -47,13 +54,44 @@ export default class Game extends Component{
         const history = this.state.history;
         const current = history[this.state.stepNumber];
 
+        //keeps track of winner  and moves of squares/ winner
+        const winner = calculateWinner(current.squares);
+        const moves = history.map((step, move) => {
+            //if move is null says start game or go to move
+            const desc = move ? 'Go to #' + move : 'Start the Game';
+
+            //returns moves
+            return (
+                //implements jump 
+                <li key={move}>
+                    <button onClick={() => { this.jumpTo(move) }}>
+                        {desc}
+                    </button>
+                </li>
+            )
+        });
+        //define variable and check winner 
+        let status;
+        if (winner) {
+            //sets status to winner if there is one
+            status = 'Winner is ' + winner;
+        } else {
+            //or tells us next player 
+            status = 'Next Player is ' + (this.state.xIsNext ? 'X' : 'O');
+        }
+
         return(
             //setting up game, holds Board component and its props click and squares
             <div className="game">
                 <div className="game-board">
                     <Board onClick={(i) => this.handleClick(i)} squares={current.squares}/>
                 </div>
+                <div className ="game-info">
+                    <ul>{status}</ul>
+                    <ul>{moves}</ul>
+                </div>
             </div>
+            //game-info displays status and moves 
         )
     }
 }
