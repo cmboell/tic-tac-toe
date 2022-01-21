@@ -20,12 +20,14 @@ export default class Game extends Component{
         }
     }
     
+    //defines jumpTo so we can restart game or go back turns 
     jumpTo(step){
-        this.state({
+        this.setState({
             stepNumber: step,
             xIsNext: (step%2)===0
         })
     }
+
     handleClick(i){
         //defines history and current for handleClick
         const history = this.state.history.slice(0,this.state.stepNumber+1);
@@ -75,9 +77,12 @@ export default class Game extends Component{
         if (winner) {
             //sets status to winner if there is one
             status = 'Winner is ' + winner;
-        } else {
+        } else if (winner == null) {
             //or tells us next player 
             status = 'Next Player is ' + (this.state.xIsNext ? 'X' : 'O');
+        }
+        else{
+            status = 'It is a tie'
         }
 
         return(
