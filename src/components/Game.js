@@ -24,8 +24,14 @@ export default class Game extends Component{
         const history = this.state.history.slice(0,this.state.stepNumber+1);
         const current = history[history.length-1]; //last item in history
         const squares = current.squares.slice(); //copy of squares and puts in squares
+        //calls calculateWinner to determine winner
+        const winner = calculateWinner(squares);
+        //displays winner and also does not let a square with value change during game
+        if(winner || squares[i]){
+            return;
+        }
         //X turn or O turn if true x is up if false o is up
-        square[i] = this.state.xIsNext?'X':'O';
+        squares[i] = this.state.xIsNext?'X':'O';
         //sets new history to history
         this.setState({
             history : history.concat({
@@ -50,5 +56,29 @@ export default class Game extends Component{
             </div>
         )
     }
+}
+//function to determine winner of the game
+function calculateWinner(squares){
+    //path to calculate winner
+    const lines = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+    //for loop to check squares to the lines above
+    for (let i = 0; i < lines.length; i++){
+        const [a,b,c] = lines[i];
+        //checks to see if squares exist or not (if an x or o is in it)
+        if(squares[a] && squares[a] === squares[b] && squares[b]
+            === squares[c] && squares[c]){
+                return squares[a];
+            }
     }
+    return null;
+}
 
