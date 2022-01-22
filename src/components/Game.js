@@ -61,7 +61,6 @@ export default class Game extends Component{
         const moves = history.map((step, move) => {
             //if move is null says start game or go to move
             const desc = move ? 'Go to #' + move : 'Start the Game';
-
             //returns moves
             return (
                 //implements jump 
@@ -77,14 +76,12 @@ export default class Game extends Component{
         if (winner) {
             //sets status to winner if there is one
             status = 'Winner is ' + winner;
-        } else if (winner == null) {
+        }
+         else {
             //or tells us next player 
             status = 'Next Player is ' + (this.state.xIsNext ? 'X' : 'O');
         }
-        else{
-            status = 'It is a tie'
-        }
-
+    
         return(
             //setting up game, holds Board component and its props click and squares
             <div className="game">
